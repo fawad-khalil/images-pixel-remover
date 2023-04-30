@@ -1,6 +1,6 @@
 import { IMAGES_PULL_LIMIT } from "@/constants/common";
 import { GET_UNSPLASH_RANDOM_IMAGES } from "@/constants/urls";
-import axios from "axios";
+// import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import ImagesMock from "../__mock__/images.json";
