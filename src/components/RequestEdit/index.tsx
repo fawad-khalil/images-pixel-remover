@@ -3,20 +3,18 @@ import { PrimaryButton } from "../Buttons/primary";
 import { SecondaryButton } from "../Buttons/secondary";
 import { trpc } from "@/utils/trpc";
 
-export const RequestEditForm = ({ image, close }) => {
+export const RequestEditForm = ({ image, close }: RequestEditProps) => {
     const saveRequest = trpc.editRequest.useMutation();
-    // const hello = trpc.hello.useQuery({text: 'Fawad'});
-    const health = trpc.health.healthz.useQuery();
     const [editRequestDesc, setEditRequestDesc] = useState('');
 
     const onSave = async () => {
 
-        const data = {image: image.urls.regular, editDescription: editRequestDesc};
+        const data = {image: image.urls?.regular || '', editDescription: editRequestDesc};
 
         saveRequest.mutate(data);
     }
 
-    const onChangeText = ({target: { value }}) => {
+    const onChangeText: React.ChangeEventHandler<HTMLTextAreaElement> = ({target: { value }}) => {
         setEditRequestDesc(value);
     }
 
@@ -31,7 +29,7 @@ export const RequestEditForm = ({ image, close }) => {
             Request Edit
         </div>
 
-        <img src={image.urls.regular} width={250} height={200} />
+        <img src={image.urls?.regular} width={250} height={200} />
 
         <textarea className='mt-7 px-1 w-[20.5%]' placeholder="Describe here..." onChange={onChangeText}/>
 

@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { procedure, router } from '../trpc';
 import fs from 'fs';
 
-const saveEditRequest = (data) => {
+const saveEditRequest = (data: EditRequestHandlerArg) => {
   const filePath = 'edit-requests.json';
 
   let json;

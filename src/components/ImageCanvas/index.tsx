@@ -1,31 +1,14 @@
 // import Image from "next/image";
-import NextImage from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { PrimaryButton } from "../Buttons/primary";
 import { SecondaryButton } from "../Buttons/secondary";
 
-type saveImageParams = {
-    src: string;
-    id: string;
-}
-
-type ImageCanvasProps = {
-    image: {
-        id: string;
-        urls: {
-            regular: string;
-        },
-    },
-    save: (info: saveImageParams) => void,
-    close: () => void,
-};
-
 export const ImageCanvas = ({ image, save, close }: ImageCanvasProps) => {
     const imageRef = useRef<HTMLImageElement>(null);
     const [mouseOffset, setMouseOffset] = useState({x: 0, y: 0});
-    const [imageSrc, setImageSrc] = useState(image.urls.regular)
+    const [imageSrc, setImageSrc] = useState(image.urls?.regular)
 
-    const onImageClick = (event) => {
+    const onImageClick = (event: React.MouseEvent<HTMLImageElement>) => {
         const canvas = document.createElement("canvas");
         const img = new Image();
         
@@ -33,7 +16,7 @@ export const ImageCanvas = ({ image, save, close }: ImageCanvasProps) => {
             canvas.width = img.width;
             canvas.height = img.height;
             const ctx = canvas.getContext("2d");
-            ctx?.drawImage(event.target, 0, 0, canvas.width, canvas.height);
+            ctx?.drawImage(event.target as CanvasImageSource, 0, 0, canvas.width, canvas.height);
 
             const x = event.nativeEvent.offsetX;
             const y = event.nativeEvent.offsetY;
@@ -46,7 +29,7 @@ export const ImageCanvas = ({ image, save, close }: ImageCanvasProps) => {
             setImageSrc(canvas.toDataURL());
         }
 
-        img.src = imageSrc;
+        img.src = imageSrc || '';
         img.crossOrigin = 'anonymous';
     }
 
