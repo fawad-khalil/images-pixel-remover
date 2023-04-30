@@ -28,7 +28,7 @@ export const RequestEditForm = ({ image, close }: RequestEditProps) => {
             Request Edit
         </div>
 
-        <img src={image.urls?.regular} width={250} height={200} />
+        <img className="bg-white" src={image.urls?.regular} width={250} height={200} />
 
         <textarea className='mt-7 px-1 w-[20.5%]' placeholder="Describe here..." onChange={onChangeText}/>
 
