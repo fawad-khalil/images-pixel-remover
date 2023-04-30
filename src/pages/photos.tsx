@@ -24,15 +24,16 @@ export default function Photos() {
     }
 
     const saveImage = (imageInfo: {src: string, id: string}) => {
-        const index = images?.findIndex((image) => image.id === imageInfo.id);
-
-        if (images && index && index >= 0) {
+        const index = images ? images.findIndex((image) => image.id === imageInfo.id) : -1;
+        
+        if (images && index >= 0) {
             images[index] = {
                 ...images[index], 
                 urls: { ...images[index].urls, 
                     oldRegular: images[index].urls?.oldRegular ? images[index].urls?.oldRegular : images[index].urls?.regular,
                     regular: imageInfo.src || '' 
                 }}
+            
             setImages([...images]);
         }
     }
