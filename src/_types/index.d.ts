@@ -19,6 +19,7 @@ type ImageType = {
     full: string;
     alt_description: string;
     urls: {
+        oldRegular?: string;
         regular: string;
     }
 }

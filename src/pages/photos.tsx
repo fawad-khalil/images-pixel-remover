@@ -1,6 +1,3 @@
-import { IMAGES_PULL_LIMIT } from "@/constants/common";
-import { GET_UNSPLASH_RANDOM_IMAGES } from "@/constants/urls";
-// import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import ImagesMock from "../__mock__/images.json";
@@ -15,10 +12,6 @@ export default function Photos() {
     const [ requestEditImage, setRequestEditImage ] = useState<Partial<ImageType> | null>();
 
     const loadImages = async () => {
-        // const response = await axios({url: `${GET_UNSPLASH_RANDOM_IMAGES}`, params: {
-        //     count: IMAGES_PULL_LIMIT,
-        //     client_id: "BAwhgWBBg6EBh87Q2X5AkgEtVM6Z4yhA2RBGKBNSVKg"
-        // }});
         setImages(ImagesMock);
     }
 
@@ -34,7 +27,12 @@ export default function Photos() {
         const index = images?.findIndex((image) => image.id === imageInfo.id);
 
         if (images && index && index >= 0) {
-            images[index] = {...images[index], urls: { ...images[index].urls, regular: imageInfo.src || '' }}
+            images[index] = {
+                ...images[index], 
+                urls: { ...images[index].urls, 
+                    oldRegular: images[index].urls?.oldRegular ? images[index].urls?.oldRegular : images[index].urls?.regular,
+                    regular: imageInfo.src || '' 
+                }}
             setImages([...images]);
         }
     }

@@ -8,8 +8,7 @@ export const RequestEditForm = ({ image, close }: RequestEditProps) => {
     const [editRequestDesc, setEditRequestDesc] = useState('');
 
     const onSave = async () => {
-
-        const data = {image: image.urls?.regular || '', editDescription: editRequestDesc};
+        const data = {image: image.urls?.oldRegular || image.urls?.regular || '', editDescription: editRequestDesc};
 
         saveRequest.mutate(data);
     }
@@ -34,9 +33,9 @@ export const RequestEditForm = ({ image, close }: RequestEditProps) => {
         <textarea className='mt-7 px-1 w-[20.5%]' placeholder="Describe here..." onChange={onChangeText}/>
 
         <div className='flex flex-row justify-end mt-5 w-[21%]'>
-            {/* {saveRequest.isLoading && <div>Saving...</div>}
+            {saveRequest.isLoading && <div>Saving...</div>}
 
-            {saveRequest.isError && <div>Error: {saveRequest.error.message}</div>} */}
+            {saveRequest.isError && <div>Error: {saveRequest.error.message}</div>}
 
             <SecondaryButton onClick={close}>Cancel</SecondaryButton>
 
